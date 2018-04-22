@@ -13,10 +13,24 @@
             <ul>
                 <li>Nimiä vähintään:</li>
                 <li>
-                    <input :value="minCount" @input="updateMinCount" type="range" min="0" max="10000" step="100"/>
+                    <input :value="minCountFilter" @input="updateMinCountFilter" type="range" min="0" max="10000" step="100"/>
                 </li>
                 <li>
-                    {{minCount}} kpl
+                    {{minCountFilter}} kpl
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Naisten nimiä
+                </li>
+                <li>
+                    <input :checked="femaleNamesFilter" @click="toggleFemaleNamesFilter" type="checkbox" />
+                </li>
+                <li>
+                    Miesten nimiä
+                </li>
+                <li>
+                    <input :checked="maleNamesFilter" @click="toggleMaleNamesFilter" type="checkbox" />
                 </li>
             </ul>
         </div>
@@ -32,16 +46,23 @@
     computed: {
       ...mapGetters([
         'randomName',
-        'minCount'
+        'minCountFilter',
+        'femaleNamesFilter',
+        'maleNamesFilter'
       ])
     },
     methods: {
       random: function () {
         this.$store.dispatch('doRandom')
       },
-      updateMinCount: function (event) {
-        console.log(event)
-        this.$store.dispatch('setMinCount', event.target.value)
+      updateMinCountFilter: function (event) {
+        this.$store.dispatch('setMinCountFilter', event.target.value)
+      },
+      toggleFemaleNamesFilter: function () {
+        this.$store.dispatch('toggleFemaleNamesFilter')
+      },
+      toggleMaleNamesFilter: function () {
+        this.$store.dispatch('toggleMaleNamesFilter')
       }
     }
   }
