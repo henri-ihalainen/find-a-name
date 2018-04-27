@@ -1,5 +1,6 @@
 import axios from 'axios'
+import config from '../config'
 
 export default {
-  getForenames: () => axios.get('http://localhost:8080/forenames').then(resp => resp.data)
+  getForenames: () => axios.get(config.API).then(resp => resp.data)
 }
