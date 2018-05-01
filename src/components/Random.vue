@@ -1,47 +1,54 @@
 <template>
-    <div class="random">
-        <h1>{{randomName.name}}</h1>
-        <h3>{{randomName.total}} kpl</h3>
-        <ul>
-            <li>Naisia: {{randomName.femaleTotal}} kpl</li>
-            <li>Miehiä: {{randomName.maleTotal}} kpl</li>
-        </ul>
+    <section class="section is-medium has-text-centered">
+        <h1 class="title">{{randomName.name}}</h1>
+        <div class="has-padding-bottom-20">
+            <p class="heading"><strong>Yhteensä</strong></p>
+            <p class="subtitle is-5"><strong>{{randomName.total}}</strong></p>
+        </div>
+        <div class="has-padding-bottom-20">
+            <p class="heading">Naisia</p>
+            <p class="subtitle is-6"> {{randomName.femaleTotal}}</p>
+        </div>
+        <div class="has-padding-bottom-20">
+            <p class="heading">Miehiä</p>
+            <p class="subtitle is-6"> {{randomName.maleTotal}}</p>
+        </div>
+        <div class="has-padding-bottom-40">
+            <a @click="random" class="button is-primary">
+                <b-icon icon="refresh"></b-icon>
+                <span>Uusi nimi</span>
+            </a>
+        </div>
+        <p class="heading has-padding-bottom-10">Asetukset</p>
+        <div class="has-padding-bottom-20">
+            <b-checkbox :value="femaleNamesFilter" @input="toggleFemaleNamesFilter">
+                Naisten nimiä
+            </b-checkbox>
+
+            <b-checkbox :value="maleNamesFilter" @input="toggleMaleNamesFilter">
+                Miesten nimiä
+            </b-checkbox>
+
+        </div>
+        <p>Vähimmäisesiintyvyys</p>
         <div>
-            <button @click="random">Päivitä</button>
+            <input :value="minCountFilter"
+                   @input="updateMinCountFilter"
+                   type="range"
+                   min="0"
+                   max="10000"
+                   step="100"/>
         </div>
         <div>
-            <ul>
-                <li>Nimiä vähintään:</li>
-                <li>
-                    <input :value="minCountFilter" @input="updateMinCountFilter" type="range" min="0" max="10000" step="100"/>
-                </li>
-                <li>
-                    {{minCountFilter}} kpl
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    Naisten nimiä
-                </li>
-                <li>
-                    <input :checked="femaleNamesFilter" @click="toggleFemaleNamesFilter" type="checkbox" />
-                </li>
-                <li>
-                    Miesten nimiä
-                </li>
-                <li>
-                    <input :checked="maleNamesFilter" @click="toggleMaleNamesFilter" type="checkbox" />
-                </li>
-            </ul>
+            {{minCountFilter}} kpl
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex';
 
   export default {
-
     name: 'Random',
     computed: {
       ...mapGetters([
@@ -53,38 +60,32 @@
     },
     methods: {
       random: function () {
-        this.$store.dispatch('doRandom')
+        this.$store.dispatch('doRandom');
       },
       updateMinCountFilter: function (event) {
-        this.$store.dispatch('setMinCountFilter', event.target.value)
+        this.$store.dispatch('setMinCountFilter', event.target.value);
       },
       toggleFemaleNamesFilter: function () {
-        this.$store.dispatch('toggleFemaleNamesFilter')
+        this.$store.dispatch('toggleFemaleNamesFilter');
       },
       toggleMaleNamesFilter: function () {
-        this.$store.dispatch('toggleMaleNamesFilter')
+        this.$store.dispatch('toggleMaleNamesFilter');
       }
     }
-  }
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    h3 {
-        margin: 40px 0 0;
+    .has-padding-bottom-10 {
+        padding-bottom: 10px;
     }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
+    .has-padding-bottom-20 {
+        padding-bottom: 20px;
     }
 
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-
-    a {
-        color: #42b983;
+    .has-padding-bottom-40 {
+        padding-bottom: 40px;
     }
 </style>

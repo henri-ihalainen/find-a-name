@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <HelloWorld/>
+        <Random/>
     </div>
 </template>
 
@@ -10,7 +10,7 @@
   export default {
     name: 'app',
     components: {
-      HelloWorld: Random
+      Random
     },
     created () {
       this.$store.dispatch('init')
@@ -23,8 +23,5 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
     }
 </style>
